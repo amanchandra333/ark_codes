@@ -104,7 +104,7 @@ int main(int argc, char **argv){
     land.publish(blank);
 
   ros::Subscriber sub = n.subscribe("/ardrone/navdata", 1000, pid);
-  ros::Publisher  pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1000,true);
+  ros::Publisher  pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1000);
 
   ros::Rate loop_rate(10);
   takeoff.publish(blank);

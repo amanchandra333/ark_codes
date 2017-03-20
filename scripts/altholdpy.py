@@ -6,7 +6,6 @@ from ardrone_autonomy.msg import Navdata
 from geometry_msgs.msg import Twist
 
 vel = Twist()
-blank = Empty()
 
 def callback(msg1):
     alt=msg1.altd
@@ -27,20 +26,22 @@ def callback(msg1):
 
 
 def altholdpy():
-    pub = rospy.Publisher("/cmd_vel", Twist, queue_size=100)
-    takeoff = rospy.Publisher("/ardrone/takeoff",Empty,queue_size=10,True)
-    rospy.Subscriber("/ardrone/navdata", Navdata, callback)
     rospy.init_node('altholdpy', anonymous=True)
+    pub = rospy.Publisher("/cmd_vel", Twist, queue_size=100)
+    takeoff = rospy.Publisher("/ardrone/takeoff",Empty,queue_size=100,latch=True)
+    rospy.Subscriber("/ardrone/navdata", Navdata, callback)
+
     rate = rospy.Rate(10)
     global vel
-    # takeoff.publish(blank)
-    # rospy.spin()
+    blank = Empty()
+    takeoff.publish(blank)
 
     while not rospy.is_shutdown():
         pub.publish(vel)
         rospy.loginfo(vel.linear.z)
         rate.sleep()
 
+    rospy.spin()
 
 if __name__ == '__main__':
     try:
