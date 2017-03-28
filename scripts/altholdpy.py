@@ -24,7 +24,6 @@ def callback(msg1):
     vel.linear.z = (kp*e + ki*E +kd*d)/dv
     Eold = e
 
-
 def altholdpy():
     rospy.init_node('altholdpy', anonymous=True)
     pub = rospy.Publisher("/cmd_vel", Twist, queue_size=100)

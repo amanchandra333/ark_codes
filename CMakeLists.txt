@@ -203,3 +203,11 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 add_executable(althold src/althold.cpp)
 target_link_libraries(althold ${catkin_LIBRARIES})
 add_dependencies(althold ark_codes_generate_messages_cpp)
+
+add_executable(turtle_random_swimming src/turtle_random_swimming.cpp)
+target_link_libraries(turtle_random_swimming ${catkin_LIBRARIES})
+add_dependencies(turtle_random_swimming beginner_tutorials_generate_messages_cpp)
+
+add_executable(turtle_p2p src/turtle_p2p.cpp)
+target_link_libraries(turtle_p2p ${catkin_LIBRARIES})
+add_dependencies(turtle_p2p ark_codes_generate_messages_cpp)
