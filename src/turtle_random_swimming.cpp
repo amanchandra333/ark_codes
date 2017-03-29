@@ -76,8 +76,8 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "turtle_random_swimming");
     ros::NodeHandle n;
-    ros::Subscriber sub_tur = n.subscribe<turtlesim::Pose>("/turtle1/pose", 1, poseCallback);
-    drive_pub_tur = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1);
+    ros::Subscriber sub_tur = n.subscribe<turtlesim::Pose>("/turtle2/pose", 1, poseCallback);
+    drive_pub_tur = n.advertise<geometry_msgs::Twist>("/turtle2/cmd_vel", 1);
 
     // init random number generator
     srand(time(NULL));

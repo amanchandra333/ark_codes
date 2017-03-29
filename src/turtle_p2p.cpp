@@ -23,7 +23,7 @@ const float kdC=0;
 
 void poseCallback(const turtlesim::Pose::ConstPtr& pose)
 {
-  if(sqrt(pow(obstacle.x-pose->x,2)+pow(obstacle.y-pose->y,2)) <= 2.0)
+  if(sqrt(pow(obstacle.x-pose->x,2)+pow(obstacle.y-pose->y,2)) <= 1.0)
     avoid = true;
   else
     avoid = false;
@@ -53,7 +53,7 @@ void poseCallback(const turtlesim::Pose::ConstPtr& pose)
     IC+=errorC;
     z = kpC*errorC + kiC*IC + kdC*(errorC-preverrorC);
     preverrorC=errorC;
-    ROS_WARN("obstacle %lf", pose->x - obstacle.x);
+    ROS_WARN("obstacle %lf", sqrt(pow(obstacle.x-pose->x,2)+pow(obstacle.y-pose->y,2)));
     if(set_theta < obs_theta)
       set_theta-=z;
     else
@@ -74,12 +74,17 @@ void poseCallback(const turtlesim::Pose::ConstPtr& pose)
   y = kpB*errorB + kiB*IB + kdB*(errorB-preverrorB);
   if(y<-1)
     y = -1;
-  else if(y>1)
-    y = 1;
+  else if(y>2)
+    y = 2;
   preverrorB=errorB;
 
   move.angular.z = x;
   move.linear.x = y;
+}
+
+void poseCallback2(const turtlesim::Pose::ConstPtr& pose2){
+obstacle.x=pose2->x;
+obstacle.y=pose2->y;
 }
 
 int main(int argc, char **argv)
@@ -87,10 +92,11 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "turtle_p2p");
     ros::NodeHandle n;
     ros::Subscriber sub_tur = n.subscribe<turtlesim::Pose>("/turtle1/pose", 1, poseCallback);
+    ros::Subscriber sub_tur2 = n.subscribe<turtlesim::Pose>("/turtle2/pose", 1, poseCallback2);
     ros::Publisher pub_tur = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1);
     ros::Rate loop_rate(10);
-    obstacle.x=5.0;
-    obstacle.y=5.0;
+    //obstacle.x=8.0;
+    //obstacle.y=2.0;
     goal.x=9.0;
     goal.y=9.0;
     while (ros::ok()){
