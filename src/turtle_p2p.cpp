@@ -23,7 +23,7 @@ const float kdC=0;
 
 void poseCallback(const turtlesim::Pose::ConstPtr& pose)
 {
-  if(sqrt(pow(obstacle.x-pose->x,2)+pow(obstacle.y-pose->y,2)) <= 1.0)
+  if(sqrt(pow(obstacle.x-pose->x,2)+pow(obstacle.y-pose->y,2)) <= 1.5)
     avoid = true;
   else
     avoid = false;
@@ -95,8 +95,6 @@ int main(int argc, char **argv)
     ros::Subscriber sub_tur2 = n.subscribe<turtlesim::Pose>("/turtle2/pose", 1, poseCallback2);
     ros::Publisher pub_tur = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1);
     ros::Rate loop_rate(10);
-    //obstacle.x=8.0;
-    //obstacle.y=2.0;
     goal.x=9.0;
     goal.y=9.0;
     while (ros::ok()){
