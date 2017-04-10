@@ -215,3 +215,8 @@ add_dependencies(turtle_p2p ark_codes_generate_messages_cpp)
 add_executable(quad_p2p src/quad_p2p.cpp)
 target_link_libraries(quad_p2p ${catkin_LIBRARIES})
 add_dependencies(quad_p2p ark_codes_generate_messages_cpp)
+
+add_executable(random src/random.cpp)
+target_link_libraries(random ${catkin_LIBRARIES})
+add_dependencies(random ark_codes_generate_messages_cpp)
+
