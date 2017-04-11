@@ -23,7 +23,8 @@ const float kdC=0;
 
 void poseCallback(const turtlesim::Pose::ConstPtr& pose)
 {
-  if(sqrt(pow(obstacle.x-pose->x,2)+pow(obstacle.y-pose->y,2)) <= 1.5)
+
+  if(sqrt(pow(obstacle.x-pose->x,2)+pow(obstacle.y-pose->y,2)) <= 2)
     avoid = true;
   else
     avoid = false;
