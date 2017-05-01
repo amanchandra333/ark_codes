@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  ark_llp
 )
 
 ## System dependencies are found with CMake's conventions
@@ -198,7 +199,6 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_executable(althold src/althold.cpp)
 target_link_libraries(althold ${catkin_LIBRARIES})
@@ -219,4 +219,3 @@ add_dependencies(quad_p2p ark_codes_generate_messages_cpp)
 add_executable(random src/random.cpp)
 target_link_libraries(random ${catkin_LIBRARIES})
 add_dependencies(random ark_codes_generate_messages_cpp)
-
